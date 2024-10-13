@@ -12,6 +12,7 @@ object Versions {
     const val `ktlint-plugin` = "11.0.0"
     const val jacoco = "0.8.7"
     const val junit5 = "5.3.2"
+    const val jaywayJsonPath = "2.9.0"
     const val assertj = "3.11.1"
     const val `kafka-junit5` = "3.1.0"
     const val kafka = "2.4.1"

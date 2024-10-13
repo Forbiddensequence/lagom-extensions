@@ -165,6 +165,18 @@ Also, you can exclude some URLs by specifying a list of matching regexps.
 ```hocon
 configured-ahc-ws-client.logging.skip-urls = ["(foo|bar)\\.acme\\.com/some/path"]
 ```
+In special cases you can shadow your fields in logs by current setting
+```hocon
+configured-ahc-ws-client.fields-shadowing = [
+      {
+        url = "(foo|bar)\\.acme\\.com/some/path"
+        symbols = "********"
+        requests = []
+        responses = []
+      }
+    ]
+```
+
 Enjoy!
 
 ### ServiceCall running on coroutines (Java &#10007; / Scala &#10007; / Kotlin &#10003;)

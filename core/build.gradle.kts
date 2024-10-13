@@ -9,6 +9,7 @@ plugins {
 
 dependencies {
     compileOnly("com.typesafe.play", "play-ahc-ws_$scalaBinaryVersion", playVersion)
+    implementation("com.jayway.jsonpath", "json-path", Versions.jaywayJsonPath)
 
     testImplementation("org.scalatest", "scalatest_$scalaBinaryVersion", Versions.scalatest)
 }

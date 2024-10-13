@@ -33,7 +33,35 @@ object ConfiguredAhcWSClient {
     new ConfiguredAhcWSClient(underlyingClient, config)
 }
 
-case class LoggingSettings(enabled: Boolean, skipUrls: Seq[Regex])
+case class LoggingSettings(enabled: Boolean, skipUrls: Seq[Regex], fieldsShadowing: Seq[ShadowingSettings])
+
+case class ShadowingSettings(
+    url: Regex,
+    replacingSymbols: String,
+    requestPatterns: Seq[String],
+    responsePatterns: Seq[String]
+)
+
+object ShadowingSettings {
+  def apply(config: Config): ShadowingSettings = ShadowingSettings(
+    config.getString("url").r,
+    config.getString("symbols"),
+    config
+      .getStringList("requests")
+      .asScala
+      .toSeq
+      .filter { s =>
+        s != null && s.nonEmpty
+      },
+    config
+      .getStringList("responses")
+      .asScala
+      .toSeq
+      .filter { s =>
+        s != null && s.nonEmpty
+      }
+  )
+}
 
 object LoggingSettings {
 
@@ -46,6 +74,13 @@ object LoggingSettings {
       .filter { s =>
         s != null && s.nonEmpty
       }
-      .map { _.r }
+      .map { _.r },
+    config
+      .getConfigList("fields-shadowing")
+      .asScala
+      .toSeq
+      .map {
+        ShadowingSettings(_)
+      },
   )
 }
